@@ -176,15 +176,11 @@
     }
     function updateGameTime() {
       const timeUsed = Math.floor(Math.random() * 26) + 15; // 15-40 seconds
-      if((timeRemaining -= timeUsed) <= 0){
-        timeRemaining = 0;
-      }
-      else{
-        timeRemaining -= timeUsed;
-      }
-
+      timeRemaining -= timeUsed;
+      
       if (timeRemaining <= 0) {
         if (quarter >= 4) {
+          timeRemaining = 0;
           renderGameBoard("The game is over!\n" + `Final Score: Player ${score} - ${opponent} ${cpuScore}`);
           disableButtonsExceptReset();
           return false; // Game over
