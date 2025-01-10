@@ -96,6 +96,16 @@
             return `CPU's ${100 - yardLine}-yard line`;
         }
 }
+    function resetGame() {
+        score = 0;
+        cpuScore = 0;
+        yardLine = 20;
+        yardsToFirstDown = 10;
+        down = 1;
+        quarter = 1;
+        timeRemaining = QUARTER_LENGTH;
+        renderGameBoard(`Welcome to RETRO FOOTBALL GAME!\nMake your plays to outscore the ${opponent}!`);
+    }
     function updateGameTime() {
       const timeUsed = Math.floor(Math.random() * 26) + 15; // 15-40 seconds
       timeRemaining -= timeUsed;
@@ -327,13 +337,14 @@ function handlePlay(play) {
   renderGameBoard(message);
   updateGameTime();
 }
-    function choosePlay(play) {
-      if (play === 5) {
-        renderGameBoard(`Coward!\nFinal Score: Player ${score} - ${opponent} ${cpuScore}`);
-        return;
-      }
-      handlePlay(play);
-    }
+  function choosePlay(play) {
+        if (play === 5) {
+            // Reset game state for a new game
+            resetGame();
+            return;
+        }
+        handlePlay(play);
+  }
 
     // ----- INITIALIZE GAME -----
     renderGameBoard(`Welcome to ${title}!\nMake your plays to outscore the ${opponent}`);
