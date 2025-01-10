@@ -15,12 +15,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
     }
 
     #game-container {
-      width: 80%;
-      max-width: 600px;
+      width: 90%;
+      max-width: 500px;
       border: 2px solid #0f0;
       padding: 10px;
       box-sizing: border-box;
@@ -28,25 +28,54 @@
     }
 
     #game-board {
-      white-space: pre;
-      font-size: 16px;
+      white-space: pre-wrap;
+      font-size: 14px;
       line-height: 1.5;
-      min-height: 300px; /* Ensure board is always visible */
+      min-height: 250px; /* Ensure board is always visible */
+      overflow-wrap: break-word;
+    }
+
+    #game-controls {
+      display: flex;
+      flex-wrap: wrap; /* Buttons will wrap on smaller screens */
+      justify-content: space-around;
+      margin-top: 10px;
     }
 
     button {
+      flex: 1 1 40%; /* Buttons take up 40% of the row on small screens */
+      margin: 5px;
       cursor: pointer;
       background-color: #333;
       color: #0f0;
       border: 1px solid #0f0;
-      padding: 5px 10px;
+      padding: 10px;
       font-family: "Courier New", Courier, monospace;
-      transition: background-color 0.3s;
-      margin: 5px 2px;
+      font-size: 14px;
+      text-align: center;
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     button:hover {
       background-color: #666;
+      transform: scale(1.05); /* Slight zoom effect */
+    }
+
+    button:active {
+      transform: scale(0.95); /* Press effect */
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 600px) {
+      #game-board {
+        font-size: 12px; /* Smaller font for narrow screens */
+        min-height: 200px;
+      }
+
+      button {
+        font-size: 12px; /* Adjust button size for small screens */
+        padding: 8px;
+      }
     }
   </style>
 </head>
