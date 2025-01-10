@@ -176,7 +176,12 @@
     }
     function updateGameTime() {
       const timeUsed = Math.floor(Math.random() * 26) + 15; // 15-40 seconds
-      timeRemaining -= timeUsed;
+      if((timeRemaining -= timeUsed) <= 0){
+        timeRemaining = 0;
+      }
+      else{
+        timeRemaining -= timeUsed;
+      }
 
       if (timeRemaining <= 0) {
         if (quarter >= 4) {
