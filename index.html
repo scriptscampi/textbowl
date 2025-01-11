@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Bowl Football Game</title>
+  <title>Retro Football Game</title>
   <style>
     /* General body styling for CRT effect */
     body {
@@ -65,6 +65,12 @@
       transform: scale(0.95); /* Press effect */
     }
 
+    button:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     /* Responsive design for smaller screens */
     @media (max-width: 600px) {
       #game-board {
@@ -80,19 +86,21 @@
   </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="game-board"></div>
-        <div id="game-controls">
-          <button onclick="choosePlay(1)">Run</button>
-          <button onclick="choosePlay(2)">Pass</button>
-          <button onclick="choosePlay(3)">Kick Field Goal</button>
-          <button onclick="choosePlay(4)">Razzle Dazzle</button>
-          <button onclick="choosePlay(5)">Reset</button>
+  <div id="game-container">
+    <div id="game-board"></div>
+    <div id="game-controls">
+      <button data-play="1">Run</button>
+      <button data-play="2">Pass</button>
+      <button data-play="3">Kick Field Goal</button>
+      <button data-play="4">Razzle Dazzle</button>
+      <button data-play="5">Reset</button>
+    </div>
+    <p style="text-align: center; margin-top: 10px;">
+      <a href="how-to-play.html" style="color: #0f0; text-decoration: none;">How to Play</a>
+    </p>
+  </div>
 
-        </div>
-      </div>
-   
-
-  <script src="./gameplay.js"></script>
+  <!-- Link to the modular JavaScript files -->
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
