@@ -51,6 +51,8 @@ function resetGame() {
     down: 1,
     quarter: 1,
     timeRemaining: 600,
+    consecutivePlays: { type: null, count: 0 }, // Tracks repeated plays
+    disabledPlays: [], // Tracks disabled play types
   });
 
   enableControls();

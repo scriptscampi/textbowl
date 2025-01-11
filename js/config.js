@@ -3,7 +3,7 @@ export const CONFIG = {
   TITLE: "Text Bowl Football",
   OPPONENT: "CPU's",
   QUARTER_LENGTH: 600,
-  MAX_DOWNS: 4,
+  MAX_DOWNS: 3,
   TOUCHDOWN_LINE: 100,
 
   // Injury settings
@@ -32,6 +32,7 @@ export const CONFIG = {
         lossofdown: false,
         affects: ["defense"],
         playtype: "all",
+        automaticFirstDown: false,
         messages: [
           "Offside! Someone forgot to count to 'hike'.",
           "Offside! The defense was a bit too eager.",
@@ -44,6 +45,7 @@ export const CONFIG = {
         lossofdown: false,
         affects: ["offense"],
         playtype: "run",
+        automaticFirstDown: false,
         messages: [
           "Holding! Your player just couldn't let go.",
           "Holding! Let go of the jersey, buddy.",
@@ -56,6 +58,7 @@ export const CONFIG = {
         lossofdown: false,
         affects: ["offense"],
         playtype: "all",
+        automaticFirstDown: false,
         messages: [
           "False Start! Someone jumped the gun.",
           "False Start! We weren't ready yet.",
@@ -68,6 +71,7 @@ export const CONFIG = {
         lossofdown: false,
         affects: ["defense"],
         playtype: "pass",
+        automaticFirstDown: true,
         messages: [
           "Pass Interference! You can submit the replay as your wresling audition.",
           "Pass Interference! You can't just tackle them mid-air.",
@@ -80,6 +84,7 @@ export const CONFIG = {
         lossofdown: false,
         affects: ["offense", "defense"],
         playtype: "all",
+        automaticFirstDown: true,
         messages: [
           "Personal Foul! That's just not nice.",
           "Personal Foul! Keep your temper in check.",
@@ -92,6 +97,7 @@ export const CONFIG = {
         lossofdown: true,
         affects: ["offense"],
         playtype: "all",
+        automaticFirstDown: false,
         messages: [
           "Illegal Formation! How many players do you need?",
           "Illegal Formation! That’s not how you line up.",
@@ -151,7 +157,7 @@ export const CONFIG = {
   ],
   CPU_TOUCHDOWN_MESSAGES: [
     "CPU Touchdown! Your defense just got friend-zoned by the end zone.",
-    "Touchdown! The machine uprising starts with your scoreboard.",
+    "CPU Touchdown! The machine uprising starts with your scoreboard.",
     "Touchdown! The CPU’s just flexing its digital dominance.",
     "Touchdown CPU! They’re gaining ground.",
     "Unstoppable CPU drive! Touchdown scored.",

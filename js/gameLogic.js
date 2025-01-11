@@ -58,6 +58,7 @@ export function updateGameTime() {
  * @param {string} playType - The current play type ("run", "pass", or "all").
  * @returns {string} - The penalty message.
  */
+/*
 export function applyPenalty(currentSide, playType) {
   // Filter penalties based on the current side and play type
   const validPenalties = CONFIG.PENALTIES.filter(
@@ -85,22 +86,29 @@ export function applyPenalty(currentSide, playType) {
     }
   } else if (currentSide === "defense") {
     gameState.yardLine = Math.min(CONFIG.TOUCHDOWN_LINE, gameState.yardLine + penalty.yards); // Move forward, can't exceed touchdown
+
+    // Handle automatic first down
+    if (penalty.automaticFirstDown) {
+      gameState.down = 1; // Reset to first down
+      gameState.yardsToFirstDown = 10; // Reset yards to first down
+    }
   }
 
-  // Handle down logic
-  if (!penalty.lossofdown) {
-    // Repeat the down
-    gameState.down = Math.max(1, gameState.down); // Ensure down stays valid
+  // Handle down logic for non-automatic first down penalties
+  if (!penalty.lossofdown && currentSide === "offense") {
+    // Repeat the down without exceeding MAX_DOWNS
+    gameState.down = Math.min(gameState.down, CONFIG.MAX_DOWNS);
   }
 
   // Return the penalty message
   return `${penalty.name} on the ${currentSide}. ${penalty.yards}-yard penalty.\n${penaltyMessage}`;
-}
+}*/
  /**
  * Checks for injuries when a play is run too many times consecutively.
  * @param {string} playType - The type of play being executed.
  * @returns {string|null} - Injury message if an injury occurs, or null.
  */
+
 function injuryCheck(playType) {
   if (gameState.consecutivePlays.type === playType) {
     gameState.consecutivePlays.count++;
@@ -110,15 +118,16 @@ function injuryCheck(playType) {
   }
 
   // Trigger injury if the play is run more than 3 times consecutively
-  if (gameState.consecutivePlays.count > 3) {
+  if (gameState.consecutivePlays.count > 6) {
     const injury = CONFIG.INJURIES[Math.floor(Math.random() * CONFIG.INJURIES.length)];
     const position = CONFIG.POSITIONS[playType];
     gameState.disabledPlays.push(playType); // Disable the play for the rest of the drive
-    return `Injury Alert: Your ${position} has ${injury}! "${playType}" is disabled for the rest of the drive.`;
+    return `Injury Alert: Your ${position} has suffered a ${injury}! "${playType}" is disabled for the rest of the drive.`;
   }
 
   return null;
 }
+
 /**
  * Simulates a CPU drive.
  * Returns a message describing the result of the drive.
@@ -173,7 +182,7 @@ function capYardsToGoal(yardsGained) {
  */
 export function handleRunPlay() {
   const yardOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const weights = [1, 9, 25, 25, 15, 3, 3, 3, 3, 2, 1];
+  const weights = [1, 9, 90, 90, 15, 3, 3, 3, 3, 2, 1];
   let yardsGained = getWeightedYards(yardOptions, weights);
   yardsGained = capYardsToGoal(yardsGained);
   gameState.yardLine += yardsGained;
@@ -274,19 +283,15 @@ export function handlePlay(play) {
   
 
    // Randomly decide if a penalty occurs (e.g., 5% chance)
-   if (Math.random() < 0.02) {
+  /* if (Math.random() < 0.8) {
     const penaltySide = Math.random() < 0.5 ? "offense" : "defense";
     const penaltyMessage = applyPenalty(penaltySide);
     renderGameBoard(penaltyMessage);
     return;
-  }
+  }*/
 
   // Check for injuries
   const injuryMessage = injuryCheck(playType);
-  if (injuryMessage) {
-    renderGameBoard(injuryMessage);
-    return;
-  }
 
   switch (play) {
     case 1: // Run
@@ -320,7 +325,7 @@ if (gameState.yardLine >= CONFIG.TOUCHDOWN_LINE) {
   status = "touchdown";
 } else if (gameState.yardsToFirstDown <= 0) {
   status = "first_down";
-} else if (gameState.down > CONFIG.MAX_DOWNS) {
+} else if (gameState.down >= CONFIG.MAX_DOWNS) {
   status = "turnover_on_downs";
 } else {
   status = "continue";
@@ -379,6 +384,9 @@ switch (status) {
 
 // Include the yard line description in the message
 //message += `\nCurrent Field Position: ${yardLineDescription}`;
+if (injuryMessage) {
+  message = `${message}\n${injuryMessage}`;
+}
 renderGameBoard(message);
 updateGameTime();}
 
