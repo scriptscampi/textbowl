@@ -27,6 +27,7 @@ function resetDrive() {
     consecutivePlays: { type: null, count: 0 }, // Reset consecutive plays
     disabledPlays: [], // Re-enable all plays
   });
+  console.log(`reset Drive ${Object.values(gameState)}`)
 }
 
 /**
@@ -230,6 +231,7 @@ export function attemptFieldGoal() {
   const attemptMessage = `${distance}-yard attempt. `;
   
   if (Math.random() * 100 < successChance) {
+    gameState.score += 3;
     const successMessage = getRandomMessage(CONFIG.FIELD_GOAL_MESSAGES);
     return `${attemptMessage}${successMessage}`;
   } else {
@@ -276,8 +278,9 @@ export function handlePlay(play) {
 
   if (turnoverMessage) {
     const cpuMessage = cpuDrive();
-    resetDrive();
     renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
+    resetDrive();
+    console.log("made it to turnover check")
     return;
   }
   
@@ -303,10 +306,13 @@ export function handlePlay(play) {
       break;
 
     case 3: // Field Goal
+       console.log("kicked field goal")
       const fieldGoalMessage = attemptFieldGoal();
       const cpuMessageAfterFieldGoal = cpuDrive();
-      renderGameBoard(`${fieldGoalMessage}\n${cpuMessageAfterFieldGoal}`);
       resetDrive();
+      renderGameBoard(`${fieldGoalMessage}\n${cpuMessageAfterFieldGoal}`);
+      //message += `${fieldGoalMessage}\n${cpuMessageAfterFieldGoal}`;
+     
       return;
 
     case 4: // Razzle Dazzle

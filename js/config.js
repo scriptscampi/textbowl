@@ -3,7 +3,7 @@ export const CONFIG = {
   TITLE: "Text Bowl Football",
   OPPONENT: "CPU's",
   QUARTER_LENGTH: 600,
-  MAX_DOWNS: 4,
+  MAX_DOWNS: 3,
   TOUCHDOWN_LINE: 100,
 
   // Injury settings
