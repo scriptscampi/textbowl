@@ -278,9 +278,8 @@ export function handlePlay(play) {
 
   if (turnoverMessage) {
     const cpuMessage = cpuDrive();
-    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     resetDrive();
-    console.log("made it to turnover check")
+    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     return;
   }
   
