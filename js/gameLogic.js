@@ -276,8 +276,8 @@ export function handlePlay(play) {
 
   if (turnoverMessage) {
     const cpuMessage = cpuDrive();
-    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     resetDrive();
+    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     return;
   }
   
