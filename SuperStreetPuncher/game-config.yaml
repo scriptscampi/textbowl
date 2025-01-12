@@ -1,0 +1,85 @@
+game:
+  title: "Super Street Puncher"
+  crt_effect: true
+
+messages:
+  main_menu: "What will you do next?"
+  workout_intro: "Choose your workout to get stronger!"
+  veg_intro: "Choose how you want to relax!"
+  no_workout_options: "No workout options available. Please check the configuration."
+  no_veg_options: "No relaxation options available. Please check the configuration."
+  workout_feedback: "You did {name}! Fitness increased by {fitness_gain}, but Recovery decreased by {recovery_cost}."
+  veg_feedback: "You chose to {name}! Recovery increased by {recovery_gain}, but Fitness decreased by {fitness_loss}."
+  encounter_opponent: "You encountered {opponent} in the {location}! Choose your move:"
+  explore_nothing: "{location_description} You found nothing interesting here."
+  flee_safe: "You fled the fight and returned to the main menu."
+  flee_damage: "You fled the fight but took {damage} damage while escaping!"
+  combat_player_attack: "You used {move_name}. {result}"
+  combat_opponent_attack: "The opponent attacked and dealt {damage} damage!"
+  combat_win: "{message} You defeated {opponent_name}! Gained {xp} XP."
+  combat_loss: "{message} You were defeated by {opponent_name}. Game over."
+
+player:
+  name: "You"
+  attributes:
+    hp: 100
+    fitness: 50
+    recovery: 50
+    xp: 0
+
+locations:
+  - name: "Subway"
+    description: "The smell of stale sandwiches and sweat fills the air."
+  - name: "Back Alley"
+    description: "Dark shadows and the faint sound of distant shouting."
+  - name: "Waffle House"
+    description: "The syrupy air of desperation stick to your skin."
+
+opponents:
+  - name: "Street Rat"
+    hp: 30
+    xp: 5
+  - name: "Subway Thug"
+    hp: 50
+    xp: 10
+  - name: "Drunken Brawler"
+    hp: 40
+    xp: 8
+  - name: "Hash Brown Hank"
+    hp: 40 
+    xp: 8
+
+actions:
+  workout_options:
+    - name: "Lift Weights"
+      fitness_gain: 10
+      recovery_cost: 5
+    - name: "Punching Bag"
+      fitness_gain: 5
+      recovery_cost: 2
+    - name: "Yoga"
+      fitness_gain: 2
+      recovery_cost: 0s
+  veg_options:
+    - name: "Scroll TikTok"
+      recovery_gain: 10
+      fitness_loss: 5
+    - name: "Binge a Show"
+      recovery_gain: 15
+      fitness_loss: 10
+    - name: "Meditate"
+      recovery_gain: 20
+      fitness_loss: 0
+  combat_moves:
+    - name: "Punch"
+      base_damage: 10
+      success_rate: 80
+      risk_factor: 1   # Low risk
+    - name: "Kick"
+      base_damage: 20
+      success_rate: 60
+      risk_factor: 2   # Moderate risk
+    - name: "Ultimate Punch"
+      base_damage: 40
+      success_rate: 30
+      risk_factor: 3   # High risk
