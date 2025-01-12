@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Super Street Puncher</title>
-  <link rel="stylesheet" href="https://textbowl.com/SuperStreetPuncher/styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<div id="game-title">Super Street Puncher</div> 
   <div class="crt-screen">
     <div id="game-container">
       <div id="message-box">Welcome to Super Street Puncher!</div>
@@ -18,8 +19,10 @@
         <p>Recovery: <span id="player-recovery">50</span></p>
         <p>XP: <span id="player-xp">0</span></p>
       </div>
+      <div id="opponent-stats" style="display: none;">
     </div>
   </div>
-  <script src="https://textbowl.com/SuperStreetPuncher/app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script type="module" src="https://textbowl.com/SuperStreetPuncher/app.js"></script>
 </body>
 </html>
