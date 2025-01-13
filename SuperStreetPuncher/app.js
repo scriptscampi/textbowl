@@ -4,7 +4,7 @@ let currentOpponent = null;
 
 // Load the YAML configuration file
 async function loadConfig() {
-  const response = await fetch("game-config.yaml");
+  const response = await fetch("https://textbowl.com/SuperStreetPuncher/game-config.yaml");
   const yamlText = await response.text();
   const yaml = window.jsyaml; // If using js-yaml via a <script> tag
   gameData = yaml.load(yamlText);
