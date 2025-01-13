@@ -18,9 +18,22 @@ messages:
   combat_opponent_attack: "The opponent attacked and dealt {damage} damage!"
   combat_win: "{message} You defeated {opponent_name}! Gained {xp} XP."
   combat_loss: "{message} You were defeated by {opponent_name}. Game over."
+  messages:
+  attack_success:
+    - "{attacker} unleashes a {move_name} and lands a crushing blow for {damage} damage!"
+    - "{attacker}'s {move_name} hits hard, dealing {damage} damage!"
+    - "{attacker}'s {move_name} connects perfectly, causing {damage} damage!"
+  attack_failure:
+    - "{attacker} tried a {move_name}, but it missed!"
+    - "{attacker}'s {move_name} fails miserably."
+    - "{attacker}'s {move_name} whiffs completely!"
+  attack_backfire:
+    - "{attacker}'s {move_name} backfires, dealing {damage} damage to themselves!"
+    - "Disaster strikes! {attacker}'s {move_name} fails and causes {damage} self-inflicted damage!"
+    - "{attacker} suffers the consequences of a failed {move_name}, taking {damage} damage!"
 
 player:
-  name: "You"
+  name: "John StreetPuncher"
   attributes:
     hp: 100
     fitness: 50
@@ -39,15 +52,23 @@ opponents:
   - name: "Street Rat"
     hp: 30
     xp: 5
+    recovery: 80
+    fitness: 30
   - name: "Subway Thug"
     hp: 50
     xp: 10
+    recovery: 75
+    fitness: 60
   - name: "Drunken Brawler"
     hp: 40
     xp: 8
+    recovery: 50
+    fitness: 50
   - name: "Hash Brown Hank"
-    hp: 40 
-    xp: 8
+    hp: 110
+    xp: 10
+    recovery: 100
+    fitness: 100
 
 actions:
   workout_options:
@@ -61,7 +82,7 @@ actions:
       fitness_gain: 2
       recovery_cost: 0s
   veg_options:
-    - name: "Scroll TikTok"
+    - name: "Scroll TikTak"
       recovery_gain: 10
       fitness_loss: 5
     - name: "Binge a Show"
@@ -75,11 +96,15 @@ actions:
       base_damage: 10
       success_rate: 80
       risk_factor: 1   # Low risk
+      backfire_damage: 1
     - name: "Kick"
       base_damage: 20
       success_rate: 60
       risk_factor: 2   # Moderate risk
+      backfire_damage: 5
     - name: "Ultimate Punch"
       base_damage: 40
       success_rate: 30
       risk_factor: 3   # High risk
+      backfire_damage: 15
+  

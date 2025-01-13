@@ -4,7 +4,7 @@ let currentOpponent = null;
 
 // Load the YAML configuration file
 async function loadConfig() {
-  const response = await fetch('https://textbowl.com/SuperStreetPuncher/game-config.yaml');
+  const response = await fetch("game-config.yaml");
   const yamlText = await response.text();
   const yaml = window.jsyaml; // If using js-yaml via a <script> tag
   gameData = yaml.load(yamlText);
@@ -106,31 +106,54 @@ function startCombat(opponent, locationName) {
 }
 // Calculate the outcome of an attack based on player stats, opponent stats, and attack weights
 function calculateAttackOutcome(attacker, defender, move) {
-    const { base_damage, success_rate, risk_factor } = move;
-  
-    // Calculate success probability
-    const successProbability = success_rate
-      + (attacker.fitness * 0.2)
-      + (attacker.xp * 0.05)
-      - (risk_factor * 5)
-      - (attacker.recovery < 20 ? 10 : 0); // Penalize if recovery is low
-  
-    // Determine if the attack hits
-    const isSuccessful = Math.random() * 100 < successProbability;
-  
-    if (isSuccessful) {
-      // Calculate base damage with randomness and fitness scaling
-      const randomness = 1 + (Math.random() * 0.2 - 0.1); // ±10%
-      const damage = Math.round(base_damage * (1 + attacker.fitness / 100) * randomness);
-  
-      // Apply damage to the defender
-      defender.hp -= damage;
-      return { success: true, damage, message: `${attacker.name} used ${move.name} and dealt ${damage} damage!` };
-    }
-  
-    // Attack missed
-    return { success: false, damage: 0, message: `${attacker.name} used ${move.name} but it missed!` };
+  const { base_damage, success_rate, risk_factor, backfire_damage } = move;
+
+  // Calculate success probability
+  const successProbability = success_rate
+    + (attacker.fitness * 0.2)
+    + (attacker.xp * 0.05)
+    - (risk_factor * 5)
+    - (attacker.recovery < 20 ? 10 : 0);
+
+  // Determine if the attack hits
+  const isSuccessful = Math.random() * 100 < successProbability;
+
+  if (isSuccessful) {
+    // Calculate damage with randomness and fitness scaling
+    const randomness = 1 + (Math.random() * 0.2 - 0.1);
+    const damage = Math.round(base_damage * (1 + attacker.fitness / 100) * randomness);
+    defender.hp -= damage;
+
+    // Get a random success message
+    const messages = gameData.messages.attack_success;
+    const messageTemplate = messages[Math.floor(Math.random() * messages.length)];
+    const message = messageTemplate.replace("{attacker}", attacker === player ? "You" : attacker.name)
+                                   .replace("{move_name}", move.name)
+                                   .replace("{damage}", damage);
+
+    return { success: true, damage, message };
+  } else if (backfire_damage) {
+    // Backfire logic: Damage the attacker
+    attacker.hp -= backfire_damage;
+
+    // Get a random backfire message
+    const messages = gameData.messages.attack_backfire;
+    const messageTemplate = messages[Math.floor(Math.random() * messages.length)];
+    const message = messageTemplate.replace("{attacker}", attacker === player ? "You" : attacker.name)
+                                   .replace("{move_name}", move.name)
+                                   .replace("{damage}", backfire_damage);
+
+    return { success: false, damage: 0, message };
+  } else {
+    // Get a random failure message
+    const messages = gameData.messages.attack_failure;
+    const messageTemplate = messages[Math.floor(Math.random() * messages.length)];
+    const message = messageTemplate.replace("{attacker}", attacker === player ? "You" : attacker.name)
+                                   .replace("{move_name}", move.name);
+
+    return { success: false, damage: 0, message };
   }
+}
 // Handle player attack
 function playerAttack(moveName) {
     const move = gameData.actions.combat_moves.find(m => m.name === moveName);
