@@ -59,7 +59,7 @@ export function updateGameTime() {
  * @param {string} playType - The current play type ("run", "pass", or "all").
  * @returns {string} - The penalty message.
  */
-/*
+
 export function applyPenalty(currentSide, playType) {
   // Filter penalties based on the current side and play type
   const validPenalties = CONFIG.PENALTIES.filter(
@@ -103,7 +103,7 @@ export function applyPenalty(currentSide, playType) {
 
   // Return the penalty message
   return `${penalty.name} on the ${currentSide}. ${penalty.yards}-yard penalty.\n${penaltyMessage}`;
-}*/
+}
  /**
  * Checks for injuries when a play is run too many times consecutively.
  * @param {string} playType - The type of play being executed.
@@ -278,19 +278,20 @@ export function handlePlay(play) {
 
   if (turnoverMessage) {
     const cpuMessage = cpuDrive();
-    resetDrive();
     renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
+    resetDrive();
+    console.log("made it to turnover check")
     return;
   }
   
 
    // Randomly decide if a penalty occurs (e.g., 5% chance)
-  /* if (Math.random() < 0.8) {
+   if (Math.random() < 0.2) {
     const penaltySide = Math.random() < 0.5 ? "offense" : "defense";
     const penaltyMessage = applyPenalty(penaltySide);
     renderGameBoard(penaltyMessage);
     return;
-  }*/
+  }
 
   // Check for injuries
   const injuryMessage = injuryCheck(playType);
