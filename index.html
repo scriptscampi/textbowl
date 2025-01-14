@@ -3,96 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text Bowl Football Game</title>
+  <title>Text Bowl Title Page</title>
   <style>
-    /* General body styling for CRT effect */
     body {
-      background-color: #000;
+      background-color: black;
       color: #0f0;
       font-family: "Courier New", Courier, monospace;
+      text-align: center;
       margin: 0;
       padding: 0;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
+      height: 100%;
+      overflow: hidden;
     }
 
-    #game-container {
-      width: 90%;
-      max-width: 500px;
-      border: 2px solid #0f0;
-      padding: 10px;
-      box-sizing: border-box;
-      text-align: left;
+    h1 {
+      font-size: 2.5rem;
+      margin: 0.5rem;
     }
 
-    #game-board {
-      white-space: pre-wrap;
-      font-size: 14px;
-      line-height: 1.5;
-      min-height: 250px; /* Ensure board is always visible */
-      overflow-wrap: break-word;
+    pre {
+      margin: 1rem 0;
+      font-size: 0.8rem;
+      line-height: 1.1;
+      overflow-x: auto; /* Enable horizontal scroll for ASCII art on smaller screens */
     }
 
-    #game-controls {
-      display: flex;
-      flex-wrap: wrap; /* Buttons will wrap on smaller screens */
-      justify-content: space-around;
-      margin-top: 10px;
+    h2 {
+      font-size: 1.8rem;
+      margin: 0.5rem;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin: 0.5rem;
     }
 
     button {
-      flex: 1 1 40%; /* Buttons take up 40% of the row on small screens */
-      margin: 5px;
-      cursor: pointer;
-      background-color: #333;
-      color: #0f0;
-      border: 1px solid #0f0;
-      padding: 10px;
+      margin-top: 1.5rem;
+      padding: 8px 16px;
+      font-size: 1.2rem;
       font-family: "Courier New", Courier, monospace;
-      font-size: 14px;
-      text-align: center;
-      transition: background-color 0.3s, transform 0.2s;
+      color: black;
+      background-color: #0f0;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 5px;
     }
 
     button:hover {
-      background-color: #666;
-      transform: scale(1.05); /* Slight zoom effect */
+      background-color: white;
+      color: black;
     }
 
-    button:active {
-      transform: scale(0.95); /* Press effect */
-    }
-
-    /* Responsive design for smaller screens */
     @media (max-width: 600px) {
-      #game-board {
-        font-size: 12px; /* Smaller font for narrow screens */
-        min-height: 200px;
+      h1 {
+        font-size: 2rem;
+      }
+
+      pre {
+        font-size: 0.6rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
       }
 
       button {
-        font-size: 12px; /* Adjust button size for small screens */
-        padding: 8px;
+        font-size: 1rem;
+        padding: 6px 12px;
       }
     }
   </style>
 </head>
 <body>
-    <div id="game-container">
-        <div id="game-board"></div>
-        <div id="game-controls">
-          <button onclick="choosePlay(1)">Run</button>
-          <button onclick="choosePlay(2)">Pass</button>
-          <button onclick="choosePlay(3)">Kick Field Goal</button>
-          <button onclick="choosePlay(4)">Razzle Dazzle</button>
-          <button onclick="choosePlay(5)">Reset</button>
+  <h1>TEXT BOWL</h1>
+  <pre>
+                       .::---==-::::              
+                  :::--=+===-::.--+*+=:           
+              .:::::-==---.. :+-#**####+:         
+            :---::-=---:  .+++****#####%%*-:      
+          -==--:-==--.. :+=*+*****####%%%%#=-:    
+        :=+=---==-:::.-==*+*+*+**####%%%%%%%+-    
+       -*+=---==-==.::****++++**#####%%%%%%%#=:   
+      =**+=--===-. -#****+++***#####%%%%%%%%%+:   
+     +#*+====++**+++***+++***#####%%%%%%%%%%#*:   
+    ==:.....:+#++*##*******######%%%%%%%%%%%#*-   
+   .. . . . :-.:+******#######%%%%%%%%%%%%%%#*-   
+  ..  . . .-: ...-+#########%%%%%%%%%%%%%%%#*+-   
+  .-==---==. .....:+#%%%%%%%%%%%%%%%%%%%%%#*++    
+.:*#*+==*#==-:.:::::+%%%%%%%%%%%%%%%%%%%%#***:    
+.=#**++**+*###=::----+%%%%%%%%%%%%%%%%%##***-.    
+.+#*++#*+*###%%*---===#%%%%%%%%%%%%%#######=      
+.+#*+#*+*##%%%%%#=====+%%%%%%%%%%%#######*=       
+.=#*##*##%%%%%%%%*=====*%%%%%%%####%%%##*=        
+.:*#%##%%%%%%%%%%%+====+%%%%%%%%%%%%%##*-         
+. =%%%%%%%%%%%%%%%+===+*%%%%%%%%%%%%%#*           
+...=%#%%%%%%%%%%%%+++++*%%%%%%%%%%%%##            
+... .-+*#%%%%%%%%#=====#%%%%%%%%%%%%%%####        
+       .:=*##%%%#===++#@@@@@@@%%%%%%%###**+       
+         :-=+*##****#%@@@@@%%%%%%##***++==-       
+         --=++**############***++===---           
+       ..:::----=========------::::::::...........
+  </pre>
+  <h2>2025</h2>
+  <h3>Rewrite football history—every play, every legend, all in text!</h3>
+  <button onclick="startGame()">Start Game</button>
 
-        </div>
-      </div>
-   
-
-  <script src="./gameplay.js"></script>
+  <script>
+    function startGame() {
+      window.location.href = "GamePlay.html"; // Replace with the actual game page
+    }
+  </script>
 </body>
 </html>
