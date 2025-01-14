@@ -1,6 +1,6 @@
 import { handlePlay, gameState, fireworks } from "./gameLogic.js";
 import { renderGameBoard } from "./ui.js";
-import { gameState } from "./gameLogic.js";
+
 
 
 /**
