@@ -286,7 +286,7 @@ export function handlePlay(play) {
   
 
    // Randomly decide if a penalty occurs (e.g., 5% chance)
-   if (Math.random() < 0.2) {
+   if (Math.random() < 0.05) {
     const penaltySide = Math.random() < 0.5 ? "offense" : "defense";
     const penaltyMessage = applyPenalty(penaltySide);
     renderGameBoard(penaltyMessage);
