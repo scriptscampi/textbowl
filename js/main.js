@@ -56,7 +56,7 @@ function resetGame() {
     disabledPlays: [], // Tracks disabled play types
     
   });
-  fireworks.stop()
+  fireworks.stop();
   enableControls();
   renderGameBoard("Game reset! Make your plays to win.");
 }
