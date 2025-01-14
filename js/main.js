@@ -54,9 +54,9 @@ function resetGame() {
     timeRemaining: 600,
     consecutivePlays: { type: null, count: 0 }, // Tracks repeated plays
     disabledPlays: [], // Tracks disabled play types
-    fireworks.stop()
+    
   });
-
+  fireworks.stop()
   enableControls();
   renderGameBoard("Game reset! Make your plays to win.");
 }
