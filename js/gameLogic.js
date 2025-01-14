@@ -18,13 +18,39 @@ export const gameState = {
   consecutivePlays: { type: null, count: 0 }, // Tracks repeated plays
   disabledPlays: [], // Tracks disabled play types
 };
+/**
+ * Generates a starting drive position (0-40) with likelihood decreasing toward the extremes.
+ * @param {number} min - Minimum yard line (e.g., 0).
+ * @param {number} max - Maximum yard line (e.g., 40).
+ * @param {number} mean - Mean yard line (e.g., 20, the center of the distribution).
+ * @param {number} stdDev - Standard deviation for the bell curve (e.g., 10).
+ * @returns {number} - Random starting yard line.
+ */
+function generateStartingDrive(min = 0, max = 40, mean = 20, stdDev = 10) {
+  // Gaussian function to simulate bell curve
+  function gaussianRandom(mean, stdDev) {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random(); // Ensure non-zero
+    while (v === 0) v = Math.random();
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v); // Box-Muller transform
+    return z * stdDev + mean; // Scale and shift to fit the distribution
+  }
+
+  // Generate a value within the range and clamp it
+  let value;
+  do {
+    value = gaussianRandom(mean, stdDev);
+  } while (value < min || value > max); // Ensure it's within bounds
+
+  return Math.round(value);
+}
 
 /**
  * Resets the drive after a turnover or a score.
  */
 function resetDrive() {
   Object.assign(gameState, {
-    yardLine: 20,
+    yardLine: generateStartingDrive(),
     yardsToFirstDown: 10,
     down: 1,
     consecutivePlays: { type: null, count: 0 }, // Reset consecutive plays
@@ -185,28 +211,112 @@ function capYardsToGoal(yardsGained) {
   return Math.min(yardsGained, distanceToGoal);
 }
 /**
+ * Simulates a run play and returns the yards gained.
+ * @param {number} remainingYards - The yards remaining to the goal line.
+ * @returns {number} - The yards gained on the run.
+ */
+function simulateRun(remainingYards) {
+    if (remainingYards <= 0) return 0;
+  
+    const probabilities = [
+      { range: [-3, 0], weight: 15 }, // Negative or zero-yard runs
+      { range: [1, 4], weight: 55 },  // Short gains
+      { range: [5, 10], weight: 25 }, // Moderate gains
+      { range: [11, 20], weight: 5 }, // Long gains
+    ];
+  
+    function weightedRandom() {
+      const totalWeight = probabilities.reduce((sum, p) => sum + p.weight, 0);
+      const random = Math.random() * totalWeight;
+      let cumulativeWeight = 0;
+  
+      for (const p of probabilities) {
+        cumulativeWeight += p.weight;
+        if (random < cumulativeWeight) {
+          const [min, max] = p.range;
+          return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+      }
+      return 0; // Fallback
+    }
+  
+    let runLength = weightedRandom();
+    runLength = Math.min(runLength, remainingYards);
+    return Math.max(runLength, 0);
+  }
+
+/**
  * Handles a run play.
  * Returns a message describing the play result.
  */
 export function handleRunPlay() {
-  const yardOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const weights = [1, 9, 90, 90, 15, 3, 3, 3, 3, 2, 1];
-  let yardsGained = getWeightedYards(yardOptions, weights);
-  yardsGained = capYardsToGoal(yardsGained);
+ // const yardOptions = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  //const weights = [1, 9, 90, 90, 15, 3, 3, 3, 3, 2, 1];
+  let remainingYards = CONFIG.TOUCHDOWN_LINE - gameState.yardLine;
+  let yardsGained = simulateRun(remainingYards)
+  //yardsGained = capYardsToGoal(yardsGained);
   gameState.yardLine += yardsGained;
   gameState.yardsToFirstDown -= yardsGained;
 
   return `You chose to run and ${yardsGained >= 0 ? "gained" : "lost"} ${Math.abs(yardsGained)} yards.`;
 }
-
 /**
- * Handles a pass play.
- * Returns a message describing the play result.
+ * Simulates passing yards gained on a play, including sacks, incompletions, and completed passes.
+ * @param {number} mean - Average yards gained for completed passes (default 10).
+ * @param {number} stdDev - Standard deviation for yardage (default 5).
+ * @param {number} max - Maximum allowed yards on a play (default 60).
+ * @param {number} sackProbability - Probability of a sack occurring (default 0.06 or 6%).
+ * @param {number} sackRange - Range of yards lost on a sack (default [-15, -1]).
+ * @param {number} incompletionProbability - Probability of an incomplete pass (default 0.35 or 35%).
+ * @returns {number} - Simulated passing yards gained (or lost).
  */
+function simulatePassingPlay(
+  mean = 10,
+  stdDev = 5,
+  max = 60,
+  sackProbability = 0.06,
+  sackRange = [-15, -1],
+  incompletionProbability = 0.20
+) {
+  // Generate a random value using the Box-Muller transform for normal distribution
+  function gaussianRandom() {
+    let u = 0, v = 0;
+    while (u === 0) u = Math.random(); // Avoid 0 for log
+    while (v === 0) v = Math.random();
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    return z;
+  }
+
+  // Determine if a sack occurs
+  if (Math.random() < sackProbability) {
+    // Sack occurred, generate yards lost within the sack range
+    const [min, max] = sackRange;
+    return Math.floor(Math.random() * (max - min + 1)) + min; // Random sack loss
+  }
+
+  // Determine if an incomplete pass occurs
+  if (Math.random() < incompletionProbability) {
+    // Incompletion occurred, return 0 yards
+    return 0;
+  }
+
+  // No sack or incompletion, calculate passing yards
+  const randomYards = gaussianRandom() * stdDev + mean;
+
+  // Clamp the value between 0 and the maximum allowed yards
+  return Math.max(0, Math.min(Math.round(randomYards), max));
+}
+
+// Example usage
+const passingYards = simulatePassingPlay();
+console.log(`Passing yards gained: ${passingYards}`);
+
 export function handlePassPlay() {
-  const yardOptions = [-5, 0, 5, 10, 15, 20, 25];
-  const weights = [3, 12, 20, 25, 25, 15, 5];
-  let yardsGained = getWeightedYards(yardOptions, weights);
+  //const yardOptions = [-5, 0, 5, 10, 15, 20, 25];
+  //const weights = [3, 12, 20, 25, 25, 15, 5];
+  //let remainingYards = CONFIG.TOUCHDOWN_LINE - gameState.yardLine;
+  //let yardsGained = getWeightedYards(yardOptions, weights);
+  let yardsGained = simulatePassingPlay();
   yardsGained = capYardsToGoal(yardsGained);
   gameState.yardLine += yardsGained;
   gameState.yardsToFirstDown -= yardsGained;
@@ -402,4 +512,3 @@ if (injuryMessage) {
 }
 renderGameBoard(message);
 updateGameTime();}
-

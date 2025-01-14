@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Retro Football Game</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     /* General body styling for CRT effect */
     body {
@@ -17,7 +18,67 @@
       align-items: center;
       min-height: 100vh;
     }
+     /* Message box styles */
+#message-box {
+  width: 100%; /* Match the width of the game board */
+  height: 100px; /* Fixed height to ensure consistent layout */
+  box-sizing: border-box;
+  overflow: auto; /* Allow scrolling for long messages */
+  padding: 10px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1rem;
+  background-color: #000; /* Black background for CRT effect */
+  color: #0f0; /* Green text color for retro feel */
+  border: none; /* No border to match CRT aesthetic */
+  margin: 0; /* Remove gap between the game info and message box */
+  position: relative; /* For CRT overlay positioning */
+}
 
+/* CRT effect specific to the message box */
+#message-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 255, 0, 0.05), /* Inner green glow */
+    rgba(0, 0, 0, 0.5) 70% /* Outer shadow */
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 1;
+}
+
+#message-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 0, 0.1) 0px, /* Green lines */
+    rgba(0, 0, 0, 0.2) 2px
+  );
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 2;
+  animation: flicker 0.05s infinite;
+}
+
+/* Flickering effect */
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.97; /* Slight flicker */
+  }
+}
     #game-container {
       width: 90%;
       max-width: 500px;
@@ -83,11 +144,90 @@
         padding: 8px;
       }
     }
+  /* fireworks testing */
+ 
+  #fireworks-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Allow interaction with the gameboard */
+  z-index: 9999; /* Ensure it's above the gameboard */
+}
+
+#fireworks-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent; /* Transparent background */
+}
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* CRT overlay effects */
+  /* CRT Overlay Effects */
+  .crt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 0, 0.05), /* Reduced inner glow intensity */
+      rgba(0, 0, 0, 0.5) 70% /* Softer shadow gradient */
+    );
+    pointer-events: none;
+    z-index: 15;
+    mix-blend-mode: screen;
+  }
+
+  .scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.05) 0px, /* Less visible scanlines */
+      rgba(0, 0, 0, 0.1) 2px
+    );
+    pointer-events: none;
+    z-index: 20;
+    mix-blend-mode: multiply;
+  }
+
+  .flicker {
+    animation: flicker 0.05s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.97; /* More subtle flicker effect */
+    }
+  }
   </style>
 </head>
 <body>
   <div id="game-container">
     <div id="game-board"></div>
+    
+    <div id="message-box">Welcome to Retro Football! Make your plays to outscore the CPU!</div>
+
     <div id="game-controls">
       <button data-play="1">Run</button>
       <button data-play="2">Pass</button>
@@ -96,10 +236,16 @@
       <button data-play="5">Reset</button>
     </div>
     <p style="text-align: center; margin-top: 10px;">
-      <a href="https://textbowl.com/How-To-Play" style="color: #0f0; text-decoration: none;">How to Play</a>
+      <a href="how-to-play.html" style="color: #0f0; text-decoration: none;">How to Play</a>
     </p>
   </div>
-
+  
+  <div id="fireworks-container">
+    <canvas id="fireworks-canvas"></canvas>
+    <div class="crt flicker"></div>
+    <div class="scanlines"></div>
+  </div>
+ 
   <!-- Link to the modular JavaScript files -->
   <script type="module" src="./js/main.js"></script>
 </body>
