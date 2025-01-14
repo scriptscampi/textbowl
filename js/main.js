@@ -2,22 +2,13 @@ import { CONFIG } from "./config.js";
 import { handlePlay, gameState, fireworks } from "./gameLogic.js";
 import { renderGameBoard } from "./ui.js";
 
-/**
- * Randomly selects a team name from the TEAMS object.
- * @returns {string} - Random team name.
- */
-function getRandomOpponent() {
-  const teamNames = Object.keys(CONFIG.TEAMS);
-  const randomIndex = Math.floor(Math.random() * teamNames.length);
-  return teamNames[randomIndex];
-}
 
 /**
  * Initializes the game by rendering the initial board and setting up button listeners.
  */
 function initializeGame() {
   CONFIG.OPPONENT = getRandomOpponent(); // Set opponent dynamically
-  renderGameBoard("Welcome to Text Bowl Football! Make your plays to outscore the CPU!");
+  renderGameBoard("Welcome to Retro Football! Make your plays to outscore the CPU!"); // Render initial state
 
   const gameControls = document.getElementById("game-controls");
   gameControls.addEventListener("click", (event) => {
@@ -36,6 +27,36 @@ function initializeGame() {
       }
     }
   });
+}
+
+
+/**
+ * Randomly selects a team name from the TEAMS object.
+ * @returns {string} - Random team name.
+ */
+function getRandomOpponent() {
+  const teamNames = Object.keys(CONFIG.TEAMS);
+  const randomIndex = Math.floor(Math.random() * teamNames.length);
+  return teamNames[randomIndex];
+}
+document.getElementById("game-controls").addEventListener("click", handleControlEvent);
+document.getElementById("game-controls").addEventListener("touchstart", handleControlEvent);
+
+function handleControlEvent(event) {
+  const play = parseInt(event.target.dataset.play, 10);
+
+  if (!isNaN(play)) {
+    if (play === 5) {
+      resetGame();
+    } else {
+      handlePlay(play);
+
+      // Disable controls if the game ends
+      if (gameState.timeRemaining === 0 && gameState.quarter === 4) {
+        disableControls();
+      }
+    }
+  }
 }
 /**
  * Enables all game controls except those explicitly excluded.
