@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text Bowl Title Page</title>
   <style>
-   /* General Styles */
+ <style>
+    /* General Styles */
     body {
       background-color: black;
       color: #0f0;
@@ -17,33 +18,38 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       overflow: hidden; /* Prevent accidental scrolling */
     }
 
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem; /* Reduced for smaller screens */
       margin: 0.5rem;
       color: #0f0;
     }
 
     pre {
-      margin: 1rem 0;
-      font-size: 0.9rem;
+      margin: 0.5rem 0; /* Smaller margins for tighter layout */
+      font-size: 0.8rem; /* Scaled down for mobile readability */
       line-height: 1.2;
       white-space: pre-wrap; /* Wrap text on small screens */
+      overflow-wrap: break-word; /* Ensure no overflow */
     }
 
     h2 {
-      font-size: 2rem;
-      margin: 0.5rem;
+      font-size: 1.8rem; /* Reduced size */
+      margin: 0.3rem;
       color: #0f0;
     }
 
+    h3 {
+      font-size: 1.2rem; /* Smaller secondary text */
+    }
+
     button {
-      margin-top: 2rem;
-      padding: 10px 20px;
-      font-size: 1.5rem;
+      margin-top: 1.5rem; /* Reduced spacing */
+      padding: 8px 16px; /* Smaller padding for mobile */
+      font-size: 1rem; /* Smaller font for compact buttons */
       font-family: "Courier New", Courier, monospace;
       color: black;
       background-color: #0f0;
@@ -60,24 +66,49 @@
     /* Responsive Design for Smaller Screens */
     @media (max-width: 768px) {
       h1 {
-        font-size: 2.5rem; /* Adjust title size for smaller screens */
+        font-size: 2rem; /* Further reduce for smaller screens */
       }
 
       pre {
-        font-size: 0.8rem; /* Smaller font for the ASCII art */
-        margin: 0.5rem 0;
+        font-size: 0.7rem; /* Smaller ASCII art font */
       }
 
       h2 {
         font-size: 1.5rem;
       }
 
-      button {
-        font-size: 1.2rem; /* Adjust button size */
-        padding: 8px 15px;
-      } 
+      h3 {
+        font-size: 1rem;
+      }
 
-   
+      button {
+        font-size: 0.9rem; /* Compact button text */
+        padding: 6px 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem; /* Fit on very small screens */
+      }
+
+      pre {
+        font-size: 0.6rem; /* Fit ASCII art tightly */
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      h3 {
+        font-size: 0.9rem;
+      }
+
+      button {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+      }
+    }
   </style>
 </head>
 <body>
