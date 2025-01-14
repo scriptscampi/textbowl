@@ -4,7 +4,7 @@ import { renderGameBoard } from "./ui.js";
 import { Fireworks } from "./fireworks.js";
 
 // Initialize fireworks instance
-const fireworks = new Fireworks("fireworks-canvas");
+export const fireworks = new Fireworks("fireworks-canvas");
 
 // Global game state
 export const gameState = {
