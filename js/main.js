@@ -1,7 +1,7 @@
 import { handlePlay } from "./gameLogic.js";
 import { renderGameBoard } from "./ui.js";
 import { gameState } from "./gameLogic.js";
-import { Fireworks } from "./fireworks.js";
+
 
 /**
  * Initializes the game by rendering the initial board and setting up button listeners.
@@ -56,7 +56,6 @@ function resetGame() {
     disabledPlays: [], // Tracks disabled play types
     
   });
-  fireworks.stop();
   enableControls();
   renderGameBoard("Game reset! Make your plays to win.");
 }
