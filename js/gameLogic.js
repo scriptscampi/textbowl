@@ -17,6 +17,7 @@ export const gameState = {
   timeRemaining: CONFIG.QUARTER_LENGTH,
   consecutivePlays: { type: null, count: 0 }, // Tracks repeated plays
   disabledPlays: [], // Tracks disabled play types
+  fireworks.stop()
 };
 
 /**
