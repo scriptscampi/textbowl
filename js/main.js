@@ -1,4 +1,4 @@
-import { handlePlay } from "./gameLogic.js";
+import { handlePlay, gameState, fireworks } from "./gameLogic.js";
 import { renderGameBoard } from "./ui.js";
 import { gameState } from "./gameLogic.js";
 
@@ -44,6 +44,7 @@ function disableControls() {
  * Resets the game state and re-enables all controls.
  */
 function resetGame() {
+  fireworks.stop();
   Object.assign(gameState, {
     score: 0,
     cpuScore: 0,
