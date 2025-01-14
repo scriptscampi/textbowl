@@ -1,7 +1,10 @@
 import { CONFIG } from "./config.js";
 import { getWeightedYards, getRandomMessage } from "./utils.js";
 import { renderGameBoard } from "./ui.js";
+import { Fireworks } from "./fireworks.js";
 
+// Initialize fireworks instance
+const fireworks = new Fireworks("fireworks-canvas");
 
 // Global game state
 export const gameState = {
@@ -43,6 +46,10 @@ export function updateGameTime() {
 
     if (gameState.quarter >= 4) {
       renderGameBoard(`The game is over!\nFinal Score: Player ${gameState.score} - ${CONFIG.OPPONENT} ${gameState.cpuScore}`);
+        if (gameState.score > gameState.cpuScore) {
+          fireworks.start(7000); // Show fireworks for 7 seconds
+        }
+
       return false; // Game over
     } else {
       gameState.quarter++;
@@ -59,7 +66,7 @@ export function updateGameTime() {
  * @param {string} playType - The current play type ("run", "pass", or "all").
  * @returns {string} - The penalty message.
  */
-
+/*
 export function applyPenalty(currentSide, playType) {
   // Filter penalties based on the current side and play type
   const validPenalties = CONFIG.PENALTIES.filter(
@@ -103,7 +110,7 @@ export function applyPenalty(currentSide, playType) {
 
   // Return the penalty message
   return `${penalty.name} on the ${currentSide}. ${penalty.yards}-yard penalty.\n${penaltyMessage}`;
-}
+}*/
  /**
  * Checks for injuries when a play is run too many times consecutively.
  * @param {string} playType - The type of play being executed.
@@ -278,20 +285,20 @@ export function handlePlay(play) {
 
   if (turnoverMessage) {
     const cpuMessage = cpuDrive();
-    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     resetDrive();
+    renderGameBoard(`${turnoverMessage}\n${cpuMessage}`);
     console.log("made it to turnover check")
     return;
   }
   
 
    // Randomly decide if a penalty occurs (e.g., 5% chance)
-   if (Math.random() < 0.05) {
+  /* if (Math.random() < 0.8) {
     const penaltySide = Math.random() < 0.5 ? "offense" : "defense";
     const penaltyMessage = applyPenalty(penaltySide);
     renderGameBoard(penaltyMessage);
     return;
-  }
+  }*/
 
   // Check for injuries
   const injuryMessage = injuryCheck(playType);

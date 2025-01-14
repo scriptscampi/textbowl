@@ -35,6 +35,7 @@ function formatDownAndDistance() {
  * @param {string} message - Additional message to display.
  */
 export function renderGameBoard(message = "") {
+  console.log(`${Object.values(gameState)} at time of render`)
   gameBoard.textContent = `
 ====================================
        ${CONFIG.TITLE}
