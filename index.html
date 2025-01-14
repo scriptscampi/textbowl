@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Text Bowl Title Page</title>
   <style>
+   /* General Styles */
     body {
       background-color: black;
       color: #0f0;
@@ -17,6 +18,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden; /* Prevent accidental scrolling */
     }
 
     h1 {
@@ -29,6 +31,7 @@
       margin: 1rem 0;
       font-size: 0.9rem;
       line-height: 1.2;
+      white-space: pre-wrap; /* Wrap text on small screens */
     }
 
     h2 {
@@ -53,6 +56,28 @@
       background-color: white;
       color: black;
     }
+
+    /* Responsive Design for Smaller Screens */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem; /* Adjust title size for smaller screens */
+      }
+
+      pre {
+        font-size: 0.8rem; /* Smaller font for the ASCII art */
+        margin: 0.5rem 0;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 1.2rem; /* Adjust button size */
+        padding: 8px 15px;
+      } 
+
+   
   </style>
 </head>
 <body>
