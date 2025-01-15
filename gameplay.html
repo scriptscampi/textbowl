@@ -173,53 +173,33 @@
     height: 100%;
     display: block;
   }
+  #field-position-bar {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  font-size: 1.2rem; /* Default font size */
+  color: #0f0;
+  margin: 10px 0;
+  white-space: nowrap; /* Prevent wrapping */
+}
 
-  /* CRT overlay effects */
-  /* CRT Overlay Effects */
-  .crt {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle,
-      rgba(0, 255, 0, 0.05), /* Reduced inner glow intensity */
-      rgba(0, 0, 0, 0.5) 70% /* Softer shadow gradient */
-    );
-    pointer-events: none;
-    z-index: 15;
-    mix-blend-mode: screen;
-  }
+#field-position-bar span {
+  font-weight: bold;
+  color: #fff; /* Ball position marker (X) */
+}
 
-  .scanlines {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-      0deg,
-      rgba(0, 255, 0, 0.05) 0px, /* Less visible scanlines */
-      rgba(0, 0, 0, 0.1) 2px
-    );
-    pointer-events: none;
-    z-index: 20;
-    mix-blend-mode: multiply;
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #field-position-bar {
+    font-size: 1rem; /* Slightly smaller font for narrower screens */
   }
+}
 
-  .flicker {
-    animation: flicker 0.05s infinite;
+@media (max-width: 480px) {
+  #field-position-bar {
+    font-size: 0.8rem; /* Smaller font for very narrow screens */
+    margin: 5px 0; /* Reduce vertical spacing */
   }
-
-  @keyframes flicker {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.97; /* More subtle flicker effect */
-    }
-  }
+}
   </style>
 </head>
 <body>
@@ -227,7 +207,7 @@
     <div id="game-board"></div>
     
     <div id="message-box">Welcome to Text Bowl Football! Make your plays to outscore the CPU!</div>
-
+    <div id="field-position-bar"></div>
     <div id="game-controls">
       <button data-play="1">Run</button>
       <button data-play="2">Pass</button>
@@ -236,7 +216,7 @@
       <button data-play="5">Reset</button>
     </div>
     <p style="text-align: center; margin-top: 10px;">
-      <a href="https://textbowl.com/How-To-Play.html" style="color: #0f0; text-decoration: none;">How to Play</a>
+      <a href="How-To-Play.html" style="color: #0f0; text-decoration: none;">How to Play</a>
     </p>
   </div>
   
@@ -247,6 +227,6 @@
   </div>
  
   <!-- Link to the modular JavaScript files -->
-  <script type="module" src="https://textbowl.com/js/main.js"></script>
+  <script type="module" src="./js/main.js"></script>
 </body>
 </html>
