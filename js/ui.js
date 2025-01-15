@@ -3,6 +3,7 @@ import { CONFIG } from "./config.js";
 import { formatTime } from "./utils.js";
 
 const gameBoard = document.getElementById("game-board");
+const messageBox = document.getElementById("message-box");
 /**
  * Formats the current field position based on the yard line.
  * @returns {string} - Formatted field position description.
@@ -45,7 +46,8 @@ Field Position: ${formatYardLine()}
 Down: ${gameState.down} | Yards to First Down: ${formatDownAndDistance()}
 Quarter: ${gameState.quarter} | Time Remaining: ${formatTime(gameState.timeRemaining)}
 ====================================
-${message || "Choose your next play below."}
+
 `;
+messageBox.textContent = message || "Choose your next play below.";
 
 }

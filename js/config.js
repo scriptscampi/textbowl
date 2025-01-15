@@ -1,10 +1,54 @@
 // ----- CONFIGURATION -----
 export const CONFIG = {
   TITLE: "Text Bowl Football",
-  OPPONENT: "CPU's",
+  OPPONENT: "",
   QUARTER_LENGTH: 600,
   MAX_DOWNS: 4,
   TOUCHDOWN_LINE: 100,
+      TEAMS: {
+      "Thunder Tacos": {
+        name: "Thunder Tacos",
+        run: 90,
+        pass: 75,
+        defense: 70,
+        description: "They bring the heat... and the indigestion.",
+      },
+      "Flying Penguins": {
+        name: "Flying Penguins",
+        run: 60,
+        pass: 85,
+        defense: 80,
+        description: "Defying gravity and expectations.",
+      },
+      "Brawling Bananas": {
+        name: "Brawling Bananas",
+        run: 80,
+        pass: 70,
+        defense: 85,
+        description: "Slipping past defenses with shocking speed.",
+      },
+      "Giga Goats": {
+        name: "Giga Goats",
+        run: 85,
+        pass: 90,
+        defense: 75,
+        description: "They charge through everything, including Wi-Fi signals.",
+      },
+      "Sloth Supremes": {
+        name: "Sloth Supremes",
+        run: 50,
+        pass: 65,
+        defense: 95,
+        description: "Slow and steady... and surprisingly fiery.",
+      },
+      "Atomic Ants": {
+        name: "Atomic Ants",
+        run: 90,
+        pass: 60,
+        defense: 80,
+        description: "Small but mighty. They'll leave you in the dirt.",
+      },
+    },
 
   // Injury settings
   INJURIES: [
