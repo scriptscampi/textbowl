@@ -190,9 +190,9 @@ export function cpuDrive() {
 function turnoverCheck(playType) {
   const turnoverChance = Math.random() * 100;
 
-  if (playType === "run" && turnoverChance < 3) {
+  if (playType === "run" && turnoverChance < 2.5) {
     return getRandomMessage(CONFIG.FUMBLE_MESSAGES);
-  } else if (playType === "pass" && turnoverChance < 5) {
+  } else if (playType === "pass" && turnoverChance < 4) {
     return getRandomMessage(CONFIG.INTERCEPTION_MESSAGES);
   } else if (playType === "razzle_dazzle" && turnoverChance < 55) {
     return getRandomMessage(CONFIG.FAILED_RAZZLEDAZLE_MESSAGES);
