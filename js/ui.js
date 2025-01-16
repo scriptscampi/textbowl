@@ -70,7 +70,7 @@ export function renderGameBoard(message = "") {
 ====================================
 Score: Player ${gameState.score} - ${CONFIG.OPPONENT} ${gameState.cpuScore}
 Ball On: ${formatYardLine()}
-Down: ${gameState.down} | Yards to First Down: ${formatDownAndDistance()}
+Down: ${gameState.down} and  ${formatDownAndDistance()}
 Quarter: ${gameState.quarter} | Time Remaining: ${formatTime(gameState.timeRemaining)}
 ====================================
 `;
