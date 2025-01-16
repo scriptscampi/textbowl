@@ -14,7 +14,7 @@ function formatYardLine() {
   } else if (gameState.yardLine === 50) {
     return "Midfield (50-yard line)";
   } else {
-    return `CPU's ${CONFIG.TOUCHDOWN_LINE - gameState.yardLine}-yard line`;
+    return `${CONFIG.OPPONENT} ${CONFIG.TOUCHDOWN_LINE - gameState.yardLine}-yard line`;
   }
 }
 /**
@@ -69,7 +69,7 @@ export function renderGameBoard(message = "") {
        ${CONFIG.TITLE}
 ====================================
 Score: Player ${gameState.score} - ${CONFIG.OPPONENT} ${gameState.cpuScore}
-Field Position: ${formatYardLine()}
+Ball On: ${formatYardLine()}
 Down: ${gameState.down} | Yards to First Down: ${formatDownAndDistance()}
 Quarter: ${gameState.quarter} | Time Remaining: ${formatTime(gameState.timeRemaining)}
 ====================================
