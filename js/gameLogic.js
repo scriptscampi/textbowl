@@ -1,7 +1,7 @@
 import { CONFIG } from "./config.js";
 import { getWeightedYards, getRandomMessage } from "./utils.js";
 import { renderGameBoard } from "./ui.js";
-import { Fireworks } from "./fireworks.js";
+import { showTouchdownMessage,Fireworks } from "./animations.js";
 
 // Initialize fireworks instance
 export const fireworks = new Fireworks("fireworks-canvas");
@@ -479,6 +479,7 @@ switch (true) {
 switch (status) {
   case "touchdown":
     gameState.score += 7;
+    showTouchdownMessage(); 
     const cpuTouchdownMessage = cpuDrive();
     message += `\n${getRandomMessage(CONFIG.PLAYER_TOUCHDOWN_MESSAGES)}\n${cpuTouchdownMessage}`;
     resetDrive();
