@@ -116,12 +116,12 @@
   <button onclick="startGame()">Start Game</button>
 
   <script defer>
-    function startGame() {
+     document.getElementById("year").textContent = new Date().getFullYear();
+     function startGame() {
       window.location.href = "./gameplay.html"; // Replace with the actual game page
     }
-     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+   
 </body>
 <footer>
   <br>
