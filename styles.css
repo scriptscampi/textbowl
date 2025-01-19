@@ -101,4 +101,20 @@ body {
       rgba(0, 255, 0, 0.05) 0px, /* Less visible scanlines */
       rgba(0, 0, 0, 0.1) 2px
     );
+footer {
+  background-color: #000; /* Matches the site's CRT effect */
+  color: #0f0; /* Retro green color */
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  padding: 10px 0;
+  border-top: 1px solid #0f0; /* Optional styling */
+  position: fixed; /* Keeps it at the bottom of the viewport */
+  width: 100%;
+  bottom: 0;
+  z-index: 100;
+}
 
+footer p {
+  margin: 0;
+  font-size: 0.8rem;
+}
