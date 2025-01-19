@@ -219,8 +219,9 @@
       <a href="How-To-Play.html" style="color: #0f0; text-decoration: none;">How to Play</a>
     </p>
   </div>
-  
-  <div id="fireworks-container">
+  <div id="touchdown-message" class="hidden">
+    <span>T</span><span>O</span><span>U</span><span>C</span><span>H</span><span>D</span><span>O</span><span>W</span><span>N</span><span>!</span>
+  </div>  <div id="fireworks-container">
     <canvas id="fireworks-canvas"></canvas>
     <div class="crt flicker"></div>
     <div class="scanlines"></div>
@@ -229,12 +230,4 @@
   <!-- Link to the modular JavaScript files -->
   <script type="module" src="./js/main.js"></script>
 </body>
-  
-
-<footer>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-  <p>&copy; <span id="year"></span> TextBowl. All rights reserved.</p>
-</footer>
 </html>

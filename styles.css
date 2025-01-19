@@ -1,1 +1,143 @@
-body{margin:0;overflow:hidden;font-family:"Courier New",Courier,monospace;background:#000;color:lime}h1,h2,p{margin:0 0 10px;text-align:center}button{font-size:1.2rem;padding:10px 20px;background-color:lime;color:#000;border:none;cursor:pointer}button:hover{background-color:#fff;color:#000}body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgb(0 255 0 / .1),rgb(0 0 0 / .8) 70%);pointer-events:none;mix-blend-mode:screen;z-index:10}body::after{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgb(0 255 0 / .1) 0,rgb(0 0 0 / .2) 2px);pointer-events:none;mix-blend-mode:multiply;z-index:20;animation:flicker 0.05s infinite}@keyframes flicker{0%,100%{opacity:1}50%{opacity:.97}}.crt{position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgb(0 255 0 / .05),rgb(0 0 0 / .5) 70%);pointer-events:none;z-index:15;mix-blend-mode:screen}.scanlines{position:absolute;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgb(0 255 0 / .05) 0,rgb(0 0 0 / .1) 2px);footer{background-color:#000;color:lime;font-family:"Courier New",Courier,monospace;text-align:center;padding:10px 0;margin-top:20px;border-top:1px solid lime;width:100%;box-sizing:border-box;position:relative}footer p{margin:0;font-size:.8rem}
+/* General Styles for CRT Effect */
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: "Courier New", Courier, monospace;
+    background: black;
+    color: #0f0;
+  }
+  
+  h1, h2, p {
+    margin: 0 0 10px;
+    text-align: center;
+  }
+  
+  button {
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    background-color: #0f0;
+    color: black;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  /* CRT Overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 0, 0.1),
+      rgba(0, 0, 0, 0.8) 70%
+    );
+    pointer-events: none;
+    mix-blend-mode: screen;
+    z-index: 10;
+  }
+  
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.1) 0px,
+      rgba(0, 0, 0, 0.2) 2px
+    );
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    z-index: 20;
+    animation: flicker 0.05s infinite;
+  }
+  
+  /* Flicker Effect */
+  @keyframes flicker {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.97;
+    }
+  }
+
+    /* CRT overlay effects */
+  /* CRT Overlay Effects */
+  .crt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 255, 0, 0.05), /* Reduced inner glow intensity */
+      rgba(0, 0, 0, 0.5) 70% /* Softer shadow gradient */
+    );
+    pointer-events: none;
+    z-index: 15;
+    mix-blend-mode: screen;
+  }
+
+  .scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.05) 0px, /* Less visible scanlines */
+      rgba(0, 0, 0, 0.1) 2px
+    );
+  }
+
+  #touchdown-message span {
+    display: inline-block;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #0f0;
+    text-shadow: 0 0 10px #0f0, 0 0 20px #00ff00;
+    opacity: 0;
+    transform: translateY(0) scale(1);
+    animation: wave-letter 1s ease-in-out forwards;
+  }
+  
+  @keyframes wave-letter {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-20px) scale(1.5);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 0;
+    }
+  }
+  
+  #touchdown-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  
+  .hidden {
+    display: none;
+  }
